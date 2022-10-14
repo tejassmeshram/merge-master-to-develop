@@ -1,0 +1,23 @@
+name: Merge Master to Develop
+
+on:
+  push:
+    branches:
+      - master
+      
+jobs:
+  merge:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout Module Repo
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+        
+      - name: Git Merge
+        run: |
+          set -x
+          git checkout develop
+          git merge origin/master
+          git push -u origin develop
